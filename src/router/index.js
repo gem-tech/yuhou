@@ -37,7 +37,7 @@ const routes = [{
     component: () => import('@/components/yuhouIndex.vue')
   },
 ]
-
+//我是猪猪康
 const router = new VueRouter({
   routes,
 })

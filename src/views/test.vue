@@ -2,13 +2,14 @@
   <div>
     <YuhouNav></YuhouNav>
     <YuhouFooter></YuhouFooter>
+    <button @click="getClimaxAudio"></button>
   </div>
 </template>
 
 <script>
-import YuhouNav from '@/components/yuhouNav.vue'
-import YuhouFooter from '@/components/yuhouFooter.vue'
-const MiniApp = window.MiniApp
+import YuhouNav from "@/components/yuhouNav.vue";
+import YuhouFooter from "@/components/yuhouFooter.vue";
+const MiniApp = window.MiniApp;
 export default {
   name: "test",
   data() {
@@ -41,35 +42,39 @@ export default {
         MiniApp.showToast({ title: "再按一次退出应用" });
         setTimeout(() => {
           this.preTime = 0;
-        }, 3000);
-      } else if (new Date().getTime() - this.preTime < 3000) {
+          history.pushState(null, null, document.URL);
+        }, 2000);
+      } else if (new Date().getTime() - this.preTime < 2000) {
         MiniApp.exitMiniApp();
       }
+    },
+
+    /**
+     * 返回类型（chords - 和弦，dbeats - 节拍，tonality - 调性，
+     *  segments - 歌曲结构，drumbeats - 鼓点，dbeat_dbn - 卡点，vocal_pitch - 人声音高）
+     *
+     * 不填fields返回
+     *  author_name: "歌手名",audio_name: "歌曲名",hash: "音频哈希",
+     */
+    async getClimaxAudio() {
+      await MiniApp.getClimaxAudio({
+        // fields: "segments",
+        album_audio_ids: ["32072514", "108735213"],
+        success: (resp) => {
+          console.log(resp.data);
+        },
+        fail: (resp) => {
+          console.log(resp.errMsg);
+        },
+      });
     },
   },
 };
 </script>
 
-<style>
-.main {
-  margin-top: 0;
-}
-#back {
-  margin-top: 5vh;
-}
-.m-text {
-  text-align: center;
-  font-size: x-large;
-  font-weight: bolder;
-  color: aqua;
-}
-.custom-button {
-  width: 26px;
-  color: #fff;
-  font-size: 10px;
-  line-height: 18px;
-  text-align: center;
-  background-color: #ee0a24;
-  border-radius: 100px;
+<style scoped>
+button {
+  width: 20vw;
+  height: 10vw;
 }
 </style>

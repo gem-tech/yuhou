@@ -3,6 +3,7 @@
     <YuhouNav></YuhouNav>
     <YuhouFooter></YuhouFooter>
     <button @click="getClimaxAudio"></button>
+    <YuhouBack></YuhouBack>
   </div>
 </template>
 
@@ -11,16 +12,15 @@ import YuhouNav from "@/components/yuhouNav.vue";
 import YuhouFooter from "@/components/yuhouFooter.vue";
 const MiniApp = window.MiniApp;
 export default {
-  name: "test",
-  data() {
+  name: 'test',
+  data () {
     return {
-      preTime: 0,
-      exitListener: null,
     };
   },
   components: {
     YuhouFooter,
     YuhouNav,
+    YuhouBack,
   },
   created() {},
   mounted() {
